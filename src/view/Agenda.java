@@ -33,24 +33,24 @@ public class Agenda {
 		 window.setTitle("Agenda Inc.");
 		 window.getContentPane().setBackground(Color.decode("#3E4147"));
 		 
-		 populateContactsList(null);
 		 addElements();
-		 
+
 		 window.setVisible(true);
 
 	}
 	
-	private void populateContactsList(String[] contacts) {
+	public void populateContactsList(String[] contacts) {
 
-		 listModel.addElement("Element 1");
-		 listModel.addElement("Element 2");
-		 listModel.addElement("Element 3");
-		
+		for(int i = 0; i < contacts.length; i++) {
+			 listModel.addElement(contacts[i]);
+		 }
 
 		//change font size
 		 list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
          list.setSelectedIndex(0);
-         list.setVisibleRowCount(10);
+		 list.setVisibleRowCount(10);
+		 
+		 refresh();
 	}
 	
 	private void addElements() {

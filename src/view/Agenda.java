@@ -3,6 +3,9 @@ package view;
 import java.awt.Color;
 
 import javax.swing.*;
+import javax.swing.event.*;
+
+import model.ContactModel;
 
 public class Agenda {
 	private JFrame window;
@@ -32,6 +35,15 @@ public class Agenda {
 		 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 window.setTitle("Agenda Inc.");
 		 window.getContentPane().setBackground(Color.decode("#3E4147"));
+
+		 list.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent arg0) {
+				String[] tokens = list.getSelectedValue().toString().split(" ");
+				contactForm.setValues(ContactModel.getContact(tokens[0], tokens[1]));
+			}
+        });
 		 
 		 addElements();
 

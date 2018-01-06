@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Properties;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.*;
@@ -58,6 +59,18 @@ public class ContactForm {
 		return this.container;
 	}
 
+	public void setValues(Properties contact) {
+		name.setText(contact.getProperty("name"));
+		surname.setText(contact.getProperty("surname"));
+		homePhone.setText(contact.getProperty("home"));
+		officePhone.setText(contact.getProperty("office"));
+		cellPhone.setText(contact.getProperty("cellphone"));
+		email.setText(contact.getProperty("email"));
+		birthday.setText(contact.getProperty("birthday"));
+
+		refresh();
+	}
+
 	private void configElements() {
 		nameLabel.setBounds(40, 50, 127, 25);
 		name.setBounds(97, 50, 127, 25);
@@ -114,4 +127,8 @@ public class ContactForm {
 
 		container.setLayout(new BorderLayout());		
 	}
+
+	private void refresh() {
+		container.repaint();
+	}	
 }

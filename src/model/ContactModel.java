@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Properties;
+
 public class ContactModel {
     private String name;
     private String surname;
@@ -32,8 +34,8 @@ public class ContactModel {
         return contacts;
     }
 
-    public static String getContact() { 
-        return "";
+    public static Properties getContact(String name, String surname) { 
+        return FileManager.getFileProperties(name + "-" + surname + ".dt");
     }
 
 

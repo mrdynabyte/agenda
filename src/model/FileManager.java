@@ -20,11 +20,11 @@ public class FileManager {
         properties = new Properties();
         
         try {
-            reader = new FileReader(manager.getAbsolutePath() + filename);  
+            reader = new FileReader(manager.getPath()+ "\\" + filename);  
             properties.load(reader);
         } catch (FileNotFoundException e) {
             //TODO: handle exception
-            System.out.println("File:  "+ filename + " was not found");
+            System.out.println("File:  "+ manager.getAbsolutePath() + filename + " was not found");
         } catch(IOException e) {
             System.out.println("There was a problem reading the contact file");            
         }

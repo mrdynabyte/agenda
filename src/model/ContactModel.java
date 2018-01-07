@@ -18,24 +18,18 @@ public class ContactModel {
 
     public static String[] getContactList() {
         
-        String[] tokens;
         String[] fileList = FileManager.fileList();
         String[] contacts = new String[fileList.length];
 
         for( int i= 0; i < contacts.length; i++ ) {
-            tokens =  fileList[i].split("-");
-
-            contacts[i] = tokens[0];
-            contacts[i] += (tokens[1] != null) ? 
-                                " " + tokens[1].substring(0, tokens[1].length() - 3) : 
-                                "";
+            contacts[i] = fileList[i].substring(0, fileList[i].length() - 3);
         }
 
         return contacts;
     }
 
-    public static Properties getContact(String name, String surname) { 
-        return FileManager.getFileProperties(name + "-" + surname + ".dt");
+    public static Properties getContact(String name) { 
+        return FileManager.getFileProperties(name + ".dt");
     }
 
 

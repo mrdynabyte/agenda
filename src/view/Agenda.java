@@ -40,8 +40,8 @@ public class Agenda {
 
             @Override
             public void valueChanged(ListSelectionEvent arg0) {
-				String[] tokens = list.getSelectedValue().toString().split(" ");
-				contactForm.setValues(ContactModel.getContact(tokens[0], tokens[1]));
+				String contact = list.getSelectedValue().toString();
+				contactForm.setValues(ContactModel.getContact(contact));
 			}
         });
 		 

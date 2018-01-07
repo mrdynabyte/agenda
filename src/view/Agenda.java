@@ -23,6 +23,7 @@ public class Agenda {
 		 contactForm	= new ContactForm();
 
 		 configElements();
+		 configureEvents();
 	};
 	
 	private void configElements() {
@@ -36,15 +37,6 @@ public class Agenda {
 		 window.setTitle("Agenda Inc.");
 		 window.getContentPane().setBackground(Color.decode("#3E4147"));
 
-		 list.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent arg0) {
-				String contact = list.getSelectedValue().toString();
-				contactForm.setValues(ContactModel.getContact(contact));
-			}
-        });
-		 
 		 addElements();
 
 		 window.setVisible(true);
@@ -68,6 +60,17 @@ public class Agenda {
 	private void addElements() {
 		window.add(leftContainer);
 		window.add(contactForm.getForm());
+	}
+
+	private void configureEvents() {
+		list.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent arg0) {
+				String contact = list.getSelectedValue().toString();
+				contactForm.setValues(ContactModel.getContact(contact));
+			}
+        });
 	}
 	
 	private void refresh() {

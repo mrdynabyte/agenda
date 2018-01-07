@@ -3,7 +3,13 @@ package view;
 import java.util.Properties;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
+import javax.swing.event.*;
+
+import model.Contact;
 
 public class ContactForm {
 	
@@ -53,20 +59,21 @@ public class ContactForm {
 		delete = new JButton("Delete");
 		
 		configElements();
+		configureEvents();
 	}
 
 	public JPanel getForm() {
 		return this.container;
 	}
 
-	public void setValues(Properties contact) {
-		name.setText(contact.getProperty("name"));
-		surname.setText(contact.getProperty("surname"));
-		homePhone.setText(contact.getProperty("home"));
-		officePhone.setText(contact.getProperty("office"));
-		cellPhone.setText(contact.getProperty("cellphone"));
-		email.setText(contact.getProperty("email"));
-		birthday.setText(contact.getProperty("birthday"));
+	public void setValues(Contact contact) {
+		name.setText(contact.getName());
+		surname.setText(contact.getSurname());
+		homePhone.setText(contact.getHomePhone());
+		officePhone.setText(contact.getOfficePhone());
+		cellPhone.setText(contact.getCellPhone());
+		email.setText(contact.getEmail());
+		birthday.setText(contact.getBirthday());
 
 		refresh();
 	}
@@ -126,6 +133,15 @@ public class ContactForm {
 
 
 		container.setLayout(new BorderLayout());		
+	}
+
+	private void configureEvents() {
+		save.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Saving contact"); 		
+			}
+		});
 	}
 
 	private void refresh() {

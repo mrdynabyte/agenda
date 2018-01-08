@@ -10,7 +10,13 @@ public class Contact {
     private String officePhone;
     private String email;
     private String birthday;
+    private String address;
+    
     private String filename;
+
+    public Contact() {
+
+    }
 
     public Contact (Properties record) {
 		this.setName(record.getProperty("name"));
@@ -19,6 +25,7 @@ public class Contact {
 		this.setOfficePhone(record.getProperty("office"));
 		this.setCellPhone(record.getProperty("cellphone"));
 		this.setEmail(record.getProperty("email"));
+		this.setAddress(record.getProperty("address"));
 		this.setBirthday(record.getProperty("birthday"));
     }
 
@@ -47,6 +54,9 @@ public class Contact {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     };    
+    public void setAddress(String address) {
+        this.address = address;
+    };   
 
     /* Getters */
     
@@ -70,5 +80,22 @@ public class Contact {
     };
     public String getBirthday() {
         return this.birthday;
-    };       
+    };
+    public String getAddress() {
+        return this.address;
+    };
+    public Properties toPropertiesObject() {
+        Properties contact = new Properties();
+
+        contact.setProperty("name", this.name);
+        contact.setProperty("surname", this.surname);
+        contact.setProperty("home", this.homePhone);
+        contact.setProperty("office", this.officePhone);
+        contact.setProperty("cellphone", this.cellPhone);
+        contact.setProperty("email", this.email);
+        contact.setProperty("birthday", this.birthday);
+        contact.setProperty("address", this.address);
+
+        return contact;
+    }
 }

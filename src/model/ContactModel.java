@@ -21,7 +21,7 @@ public class ContactModel {
     }
 
     public static void saveContact(Contact contact) {
-        
+        FileManager.saveFile(contact.toPropertiesObject());
     }
 
 }

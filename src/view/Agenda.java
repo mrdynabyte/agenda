@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -64,13 +66,13 @@ public class Agenda {
 
 	private void configureEvents() {
 		list.addListSelectionListener(new ListSelectionListener() {
-
             @Override
             public void valueChanged(ListSelectionEvent arg0) {
 				String contact = list.getSelectedValue().toString();
 				contactForm.setValues(ContactModel.getContact(contact));
 			}
-        });
+		});
+		
 	}
 	
 	private void refresh() {

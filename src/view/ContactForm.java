@@ -1,15 +1,15 @@
 package view;
 
-import java.util.Properties;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import javax.swing.event.*;
 
 import model.Contact;
+import model.ContactModel;
 
 public class ContactForm {
 	
@@ -73,6 +73,7 @@ public class ContactForm {
 		officePhone.setText(contact.getOfficePhone());
 		cellPhone.setText(contact.getCellPhone());
 		email.setText(contact.getEmail());
+		address.setText(contact.getAddress());
 		birthday.setText(contact.getBirthday());
 
 		refresh();
@@ -139,7 +140,20 @@ public class ContactForm {
 		save.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Saving contact"); 		
+				System.out.println("Saving contact");
+
+				Contact contact = new Contact();
+
+				contact.setName(name.getText());
+				contact.setSurname(surname.getText());
+				contact.setHomePhone(homePhone.getText());
+				contact.setOfficePhone(officePhone.getText());
+				contact.setCellPhone(cellPhone.getText());
+				contact.setEmail(email.getText());
+				contact.setBirthday(birthday.getText());
+				contact.setAddress(address.getText());
+
+				ContactModel.saveContact(contact);
 			}
 		});
 	}

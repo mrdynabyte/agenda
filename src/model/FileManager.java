@@ -7,18 +7,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
-public class FileManager {
-    private static File manager;
-    private static FileReader reader;
-    private static FileWriter writer;
-    private static Properties properties;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 
-    public static String[] fileList() {
-        manager = new File("agenda/src/assets/");
+public class FileManager {
+    private File manager;
+    private FileReader reader;
+    private FileWriter writer;
+    private Properties properties;
+    private JFileChooser chooser;
+    private JDialog dialog;
+
+    public FileManager() {
+        dialog = new JDialog();
+        chooser = new JFileChooser();
+		launchDirectoryChooser();
+    }
+
+    public  String[] fileList() {
         return manager.list();
     }
 
-    public static Properties getFileProperties(String filename) {
+    public  Properties getFileProperties(String filename) {
         properties = new Properties();
         
         try {
@@ -33,9 +43,9 @@ public class FileManager {
         return properties;
     }
 
-    public static void saveFile(Properties contact) {
+    public void saveFile(Properties contact) {
         try {
-            writer = new FileWriter("agenda/src/assets/" + contact.getProperty("name") + ".dt");
+            writer = new FileWriter(manager.getAbsolutePath() + contact.getProperty("name") + ".dt");
             contact.store(writer, "");
             
         } catch (IOException e) {
@@ -45,5 +55,27 @@ public class FileManager {
         }
 
     } 
+
+	private void launchDirectoryChooser () {
+
+		chooser.setCurrentDirectory(new java.io.File("."));
+		chooser.setDialogTitle("Choose agenda directory");
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+		chooser.setBounds(450, 150, 250, 150);
+        chooser.setVisible(true);
+        
+		if (chooser.showOpenDialog(dialog) == JFileChooser.APPROVE_OPTION) { 
+			System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+			System.out.println("getSelectedFile() : " +  chooser.getSelectedFile());
+               
+            this.manager = chooser.getSelectedFile();
+
+            System.out.println("Manager: " + manager.getAbsolutePath());
+		}
+		else {
+			System.out.println("No Selection ");
+		}
+	}    
 }
 

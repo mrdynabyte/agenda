@@ -7,34 +7,32 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 import model.Contact;
-import model.ContactModel;
 
 public class ContactForm {
 	
-	private JTextField name;
-	private JTextField surname;
-	private JTextField homePhone;
-	private JTextField cellPhone;
-	private JTextField officePhone;
-	private JTextField email;
-	private JTextField address;
-	private JTextField birthday;
+	protected JTextField name;
+	protected JTextField surname;
+	protected JTextField homePhone;
+	protected JTextField cellPhone;
+	protected JTextField officePhone;
+	protected JTextField email;
+	protected JTextField address;
+	protected JTextField birthday;
 
-	private JLabel nameLabel;
-	private JLabel surnameLabel;
-	private JLabel homePhoneLabel;
-	private JLabel cellPhoneLabel;
-	private JLabel officePhoneLabel;
-	private JLabel emailLabel;
-	private JLabel addressLabel;
-	private JLabel birthdayLabel;
+	protected JLabel nameLabel;
+	protected JLabel surnameLabel;
+	protected JLabel homePhoneLabel;
+	protected JLabel cellPhoneLabel;
+	protected JLabel officePhoneLabel;
+	protected JLabel emailLabel;
+	protected JLabel addressLabel;
+	protected JLabel birthdayLabel;
 
-	private JButton save;
-	private JButton delete;
+	protected JButton save;
+	protected JButton delete;
 
-	private JPanel container;
+	protected JPanel container;
 	
 	public ContactForm() {
 		name 		= new JTextField();
@@ -55,11 +53,11 @@ public class ContactForm {
 		addressLabel 		= new JLabel("Address");
 		birthdayLabel 		= new JLabel("Birthday");
 
+
 		save = new JButton("Save");
 		delete = new JButton("Delete");
 		
 		configElements();
-		configureEvents();
 	}
 
 	public JPanel getForm() {
@@ -134,28 +132,6 @@ public class ContactForm {
 
 
 		container.setLayout(new BorderLayout());		
-	}
-
-	private void configureEvents() {
-		save.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Saving contact");
-
-				Contact contact = new Contact();
-
-				contact.setName(name.getText());
-				contact.setSurname(surname.getText());
-				contact.setHomePhone(homePhone.getText());
-				contact.setOfficePhone(officePhone.getText());
-				contact.setCellPhone(cellPhone.getText());
-				contact.setEmail(email.getText());
-				contact.setBirthday(birthday.getText());
-				contact.setAddress(address.getText());
-
-				ContactModel.saveContact(contact);
-			}
-		});
 	}
 
 	private void refresh() {

@@ -1,51 +1,36 @@
 package view;
 
 import java.awt.Color;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
-
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import model.ContactModel;
+import model.Contact;
 
-public class Agenda {
+public class Agenda extends ContactForm{
 	private JFrame window;
 	private JList list;
 	private JScrollPane leftContainer;
 	private DefaultListModel listModel;
 	private ContactForm contactForm;
-	
-	public Agenda() {
-		
-		 listModel  	= new DefaultListModel();
-		 list 			= new JList<>(listModel);
-		 leftContainer 	= new JScrollPane(list);
-		 window 		= new JFrame();
-		 contactForm	= new ContactForm();
+	private ContactModel model;
 
-		 configElements();
-		 configureEvents();
+	public Agenda() {
+		listModel  		= new DefaultListModel();
+		list 			= new JList<>(listModel);
+		leftContainer 	= new JScrollPane(list);
+		window 			= new JFrame();
+		contactForm		= new ContactForm();
+		model			= new ContactModel();
+
+		configElements();
+		configureEvents();
 	};
 	
-	private void configElements() {
-		 leftContainer.setBounds(10, 10, 150, 572);
-		
-		 window.setSize(950, 650);
-		 window.setLocation(145, 100);
-		 window.setResizable(true);
-		 window.setLayout(null);
-		 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 window.setTitle("Agenda Inc.");
-		 window.getContentPane().setBackground(Color.decode("#3E4147"));
-
-		 addElements();
-
-		 window.setVisible(true);
-
-	}
-	
-	public void populateContactsList(String[] contacts) {
+	public void populateContactsList() {
+		String [] contacts = model.getContactList();
 
 		for(int i = 0; i < contacts.length; i++) {
 			 listModel.addElement(contacts[i]);
@@ -58,7 +43,23 @@ public class Agenda {
 		 
 		 refresh();
 	}
-	
+
+	private void configElements() {
+		leftContainer.setBounds(10, 10, 150, 572);
+	   
+		window.setSize(950, 650);
+		window.setLocation(145, 100);
+		window.setResizable(true);
+		window.setLayout(null);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setTitle("Agenda Inc.");
+		window.getContentPane().setBackground(Color.decode("#3E4147"));
+
+		addElements();
+
+		window.setVisible(true);
+   }
+
 	private void addElements() {
 		window.add(leftContainer);
 		window.add(contactForm.getForm());
@@ -69,10 +70,31 @@ public class Agenda {
             @Override
             public void valueChanged(ListSelectionEvent arg0) {
 				String contact = list.getSelectedValue().toString();
-				contactForm.setValues(ContactModel.getContact(contact));
+				contactForm.setValues(model.getContact(contact));
 			}
 		});
-		
+
+		this.save.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Saving contact");
+
+				Contact contact = new Contact();
+
+				contact.setName(name.getText());
+				contact.setSurname(surname.getText());
+				contact.setHomePhone(homePhone.getText());
+				contact.setOfficePhone(officePhone.getText());
+				contact.setCellPhone(cellPhone.getText());
+				contact.setEmail(email.getText());
+				contact.setBirthday(birthday.getText());
+				contact.setAddress(address.getText());
+
+				//model.saveContact(contact);
+			}
+		});
+			
+
 	}
 	
 	private void refresh() {

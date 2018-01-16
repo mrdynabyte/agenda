@@ -1,6 +1,5 @@
 package controller;
 
-import model.*;
 import view.*;
 
 public class AgendaController {
@@ -8,7 +7,7 @@ public class AgendaController {
 
     public static Agenda run() {
         app = new Agenda();
-        app.populateContactsList(ContactModel.getContactList());
+        app.populateContactsList();
         return app;
     }
 }

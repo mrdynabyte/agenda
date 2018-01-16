@@ -4,9 +4,15 @@ import java.util.Properties;
 
 public class ContactModel {
 
-    public static String[] getContactList() {
+    private static FileManager manager;
+
+    public ContactModel() {
+        manager = new FileManager();
+    }
+
+    public String[] getContactList() {
         
-        String[] fileList = FileManager.fileList();
+        String[] fileList = manager.fileList();
         String[] contacts = new String[fileList.length];
 
         for( int i= 0; i < contacts.length; i++ ) {
@@ -16,12 +22,12 @@ public class ContactModel {
         return contacts;
     }
 
-    public static Contact getContact(String name) { 
-        return new Contact(FileManager.getFileProperties(name + ".dt"));
+    public  Contact getContact(String name) { 
+        return new Contact(manager.getFileProperties(name + ".dt"));
     }
 
-    public static void saveContact(Contact contact) {
-        FileManager.saveFile(contact.toPropertiesObject());
+    public  void saveContact(Contact contact) {
+        manager.saveFile(contact.toPropertiesObject());
     }
 
 }

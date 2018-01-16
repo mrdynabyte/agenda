@@ -12,8 +12,6 @@ public class Contact {
     private String birthday;
     private String address;
     
-    private String filename;
-
     public Contact() {
 
     }

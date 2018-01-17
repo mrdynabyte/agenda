@@ -11,7 +11,7 @@ import model.Contact;
 
 public class Agenda extends ContactForm{
 	private JFrame window;
-	private JList list;
+	private JList<Contact> list;
 	private JScrollPane leftContainer;
 	private DefaultListModel listModel;
 	private ContactForm contactForm;
@@ -19,7 +19,7 @@ public class Agenda extends ContactForm{
 
 	public Agenda() {
 		listModel  		= new DefaultListModel();
-		list 			= new JList<>(listModel);
+		list 			= new JList<Contact>(listModel);
 		leftContainer 	= new JScrollPane(list);
 		window 			= new JFrame();
 		contactForm		= new ContactForm();
@@ -30,10 +30,10 @@ public class Agenda extends ContactForm{
 	};
 	
 	public void populateContactsList() {
-		String [] contacts = model.getContactList();
+		Contact [] contacts = model.getContactList();
 
 		for(int i = 0; i < contacts.length; i++) {
-			 listModel.addElement(contacts[i]);
+			 listModel.addElement(contacts[i].getName() + " " + contacts[i].getSurname());
 		 }
 
 		//change font size

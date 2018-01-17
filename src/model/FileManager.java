@@ -28,14 +28,13 @@ public class FileManager {
         return manager.list();
     }
 
-    public  Properties getFileProperties(String filename) {
+    public  Properties getFileProperties() {
         properties = new Properties();
-        
         try {
-            reader = new FileReader(manager.getPath()+ "\\" + filename);  
+            reader = new FileReader(manager.getAbsolutePath());  
             properties.load(reader);
         } catch (FileNotFoundException e) {
-            System.out.println("File:  "+ manager.getAbsolutePath() + filename + " was not found");
+            System.out.println("File:  "+ manager.getAbsolutePath() + " was not found");
         } catch(IOException e) {
             System.out.println("There was a problem reading the contact file");            
         }
@@ -60,7 +59,7 @@ public class FileManager {
 
 		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Choose agenda directory");
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		//chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setBounds(450, 150, 250, 150);
         chooser.setVisible(true);

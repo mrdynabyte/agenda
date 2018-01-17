@@ -16,15 +16,15 @@ public class Contact {
 
     }
 
-    public Contact (Properties record) {
-		this.setName(record.getProperty("name"));
-		this.setSurname(record.getProperty("surname"));
-		this.setHomePhone(record.getProperty("home"));
-		this.setOfficePhone(record.getProperty("office"));
-		this.setCellPhone(record.getProperty("cellphone"));
-		this.setEmail(record.getProperty("email"));
-		this.setAddress(record.getProperty("address"));
-		this.setBirthday(record.getProperty("birthday"));
+    public Contact (String[] record) {
+        this.setName(record[0]);
+		this.setSurname(record[1]);
+		this.setHomePhone(record[2]);
+		this.setOfficePhone(record[3]);
+		this.setCellPhone(record[4]);
+		this.setEmail(record[5]);
+		this.setBirthday(record[6]);
+		this.setAddress(record[7]);
     }
 
     /* Setters */

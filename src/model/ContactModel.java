@@ -10,20 +10,22 @@ public class ContactModel {
         manager = new FileManager();
     }
 
-    public String[] getContactList() {
-        
-        String[] fileList = manager.fileList();
-        String[] contacts = new String[fileList.length];
+    public Contact[] getContactList() {
+        Properties properties = manager.getFileProperties();
+        String[]   strings   = properties.values().toArray(new String[properties.size()]);
+        Contact contacts[] = new Contact[strings.length];
 
         for( int i= 0; i < contacts.length; i++ ) {
-            contacts[i] = fileList[i].substring(0, fileList[i].length() - 3);
+            
+            contacts[i] =  new Contact(strings[i].split(","));
+
         }
 
         return contacts;
     }
 
     public  Contact getContact(String name) { 
-        return new Contact(manager.getFileProperties(name + ".dt"));
+        return new Contact();
     }
 
     public  void saveContact(Contact contact) {

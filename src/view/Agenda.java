@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.ContainerOrderFocusTraversalPolicy;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.ActionEvent;
@@ -13,12 +16,12 @@ public class Agenda extends ContactForm{
 	private JFrame window;
 	private JList<Contact> list;
 	private JScrollPane leftContainer;
-	private DefaultListModel listModel;
+	private DefaultListModel<Contact> listModel;
 	private ContactForm contactForm;
 	private ContactModel model;
 
 	public Agenda() {
-		listModel  		= new DefaultListModel();
+		listModel  		= new DefaultListModel<Contact>();
 		list 			= new JList<Contact>(listModel);
 		leftContainer 	= new JScrollPane(list);
 		window 			= new JFrame();
@@ -33,14 +36,13 @@ public class Agenda extends ContactForm{
 		Contact [] contacts = model.getContactList();
 
 		for(int i = 0; i < contacts.length; i++) {
-			 listModel.addElement(contacts[i].getName() + " " + contacts[i].getSurname());
+			 listModel.addElement(contacts[i]);
 		 }
 
 		//change font size
 		 list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
          list.setSelectedIndex(0);
 		 list.setVisibleRowCount(10);
-		 
 		 refresh();
 	}
 
@@ -68,9 +70,8 @@ public class Agenda extends ContactForm{
 	private void configureEvents() {
 		list.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void valueChanged(ListSelectionEvent arg0) {
-				String contact = list.getSelectedValue().toString();
-				contactForm.setValues(model.getContact(contact));
+            public void valueChanged(ListSelectionEvent e) {
+				contactForm.setValues(list.getSelectedValue());
 			}
 		});
 

@@ -31,6 +31,7 @@ public class ContactForm {
 
 	protected JButton save;
 	protected JButton delete;
+	protected JButton clear;
 
 	protected JPanel container;
 	
@@ -56,6 +57,7 @@ public class ContactForm {
 
 		save = new JButton("Save");
 		delete = new JButton("Delete");
+		clear = new JButton("Clear fields");
 		
 		configElements();
 	}
@@ -105,6 +107,8 @@ public class ContactForm {
 
 		save.setBounds(150, 350, 150, 40);
 		delete.setBounds(350, 350, 150, 40);
+		
+		clear.setBounds(275, 450, 100, 25);
 				
 		container = new JPanel();
 		container.setBounds(240, 10, 640, 570);
@@ -129,9 +133,28 @@ public class ContactForm {
 
 		container.add(save);
 		container.add(delete);
+		container.add(clear);
 
+
+		clear.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearFields();
+			}
+		});
 
 		container.setLayout(new BorderLayout());		
+	}
+
+	public void clearFields() {
+		name.setText("");
+		surname.setText("");
+		homePhone.setText("");
+		officePhone.setText("");
+		cellPhone.setText("");
+		email.setText("");
+		address.setText("");
+		birthday.setText("");		
 	}
 
 	private void refresh() {

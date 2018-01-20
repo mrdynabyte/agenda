@@ -42,11 +42,11 @@ public class FileManager {
         return properties;
     }
 
-    public void saveFile(Properties contact) {
+    public void saveOnFile(String cString) {
         try {
-            writer = new FileWriter(manager.getAbsolutePath() + contact.getProperty("name") + ".dt");
-            contact.store(writer, "");
-            
+            writer = new FileWriter(manager.getAbsolutePath());
+            System.out.println(properties.size());
+
         } catch (IOException e) {
             System.out.println("There was a problem reading the contact file");
         } catch (Exception e) {

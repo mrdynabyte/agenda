@@ -17,7 +17,6 @@ public class Agenda extends ContactForm{
 	private JList<Contact> list;
 	private JScrollPane leftContainer;
 	private DefaultListModel<Contact> listModel;
-	private ContactForm contactForm;
 	private ContactModel model;
 
 	public Agenda() {
@@ -25,7 +24,6 @@ public class Agenda extends ContactForm{
 		list 			= new JList<Contact>(listModel);
 		leftContainer 	= new JScrollPane(list);
 		window 			= new JFrame();
-		contactForm		= new ContactForm();
 		model			= new ContactModel();
 
 		configElements();
@@ -64,23 +62,31 @@ public class Agenda extends ContactForm{
 
 	private void addElements() {
 		window.add(leftContainer);
-		window.add(contactForm.getForm());
+		window.add(this.container);
 	}
 
 	private void configureEvents() {
 		list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-				contactForm.setValues(list.getSelectedValue());
+				setValues(list.getSelectedValue());
 			}
 		});
 
 		this.save.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				System.out.println("Saving contact");
 
-				Contact contact = new Contact();
+				Contact contact;
+
+				if( list.getSelectedIndex() < 0 ) {
+					contact = new Contact();
+				}
+				else {
+					contact = list.getSelectedValue();
+				}
 
 				contact.setName(name.getText());
 				contact.setSurname(surname.getText());
@@ -91,11 +97,10 @@ public class Agenda extends ContactForm{
 				contact.setBirthday(birthday.getText());
 				contact.setAddress(address.getText());
 
-				//model.saveContact(contact);
+				model.saveContact(contact);
 			}
 		});
 			
-
 	}
 	
 	private void refresh() {

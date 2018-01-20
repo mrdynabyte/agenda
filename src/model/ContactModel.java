@@ -29,7 +29,19 @@ public class ContactModel {
     }
 
     public  void saveContact(Contact contact) {
-        manager.saveFile(contact.toPropertiesObject());
+        String cString = "";
+
+        cString += contact.getName();
+        cString += "," + contact.getName();
+        cString += "," + contact.getSurname();
+        cString += "," + contact.getHomePhone();
+        cString += "," + contact.getOfficePhone();
+        cString += "," + contact.getCellPhone();
+        cString += "," + contact.getEmail();
+        cString += "," + contact.getBirthday();
+        cString += "," + contact.getAddress();
+
+        manager.saveOnFile(cString);
     }
 
 }

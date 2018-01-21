@@ -135,14 +135,6 @@ public class ContactForm {
 		container.add(delete);
 		container.add(clear);
 
-
-		clear.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clearFields();
-			}
-		});
-
 		container.setLayout(new BorderLayout());		
 	}
 

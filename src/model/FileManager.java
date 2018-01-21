@@ -42,10 +42,19 @@ public class FileManager {
         return properties;
     }
 
-    public void saveOnFile(String cString) {
+    public void saveOnFile(String cString, String key) {
+        
         try {
             writer = new FileWriter(manager.getAbsolutePath());
-            System.out.println(properties.size());
+            
+            if(properties.size() < Integer.parseInt(key)) {                
+                properties.put(key, cString);
+
+            } else {
+                properties.setProperty(key, cString);
+            }
+
+            properties.store(writer, "");
 
         } catch (IOException e) {
             System.out.println("There was a problem reading the contact file");

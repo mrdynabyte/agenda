@@ -18,6 +18,7 @@ public class Agenda extends ContactForm{
 	private JScrollPane leftContainer;
 	private DefaultListModel<Contact> listModel;
 	private ContactModel model;
+	private boolean newContact;
 
 	public Agenda() {
 		listModel  		= new DefaultListModel<Contact>();
@@ -73,7 +74,7 @@ public class Agenda extends ContactForm{
 			}
 		});
 
-		this.save.addActionListener(new ActionListener(){
+		save.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -81,8 +82,10 @@ public class Agenda extends ContactForm{
 
 				Contact contact;
 
-				if( list.getSelectedIndex() < 0 ) {
+				if( newContact ) {
 					contact = new Contact();
+					contact.setKey(String.valueOf(model.getContactSize() + 1));
+					listModel.addElement(contact);
 				}
 				else {
 					contact = list.getSelectedValue();
@@ -98,6 +101,20 @@ public class Agenda extends ContactForm{
 				contact.setAddress(address.getText());
 
 				model.saveContact(contact);
+				
+				list.setSelectedIndex(listModel.getSize() - 1);
+				
+				newContact = false;
+
+				refresh();
+			}
+		});
+
+		clear.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearFields();
+				newContact =  true;
 			}
 		});
 			
@@ -107,4 +124,5 @@ public class Agenda extends ContactForm{
 		leftContainer.repaint();
 		window.repaint();
 	}
+
 }

@@ -11,12 +11,13 @@ public class Contact {
     private String email;
     private String birthday;
     private String address;
-    
+    private String key;
+
     public Contact() {
 
     }
 
-    public Contact (String[] record) {
+    public Contact (String[] record, String key) {
         this.setName(record[0]);
 		this.setSurname(record[1]);
 		this.setHomePhone(record[2]);
@@ -24,7 +25,8 @@ public class Contact {
 		this.setCellPhone(record[4]);
 		this.setEmail(record[5]);
 		this.setBirthday(record[6]);
-		this.setAddress(record[7]);
+        this.setAddress(record[7]);
+        this.setKey(key);
     }
 
     /* Setters */
@@ -56,6 +58,9 @@ public class Contact {
         this.address = address;
     };   
 
+    public void setKey(String key) {
+        this.key = key;
+    }
     /* Getters */
     
     public String getName() {
@@ -82,19 +87,8 @@ public class Contact {
     public String getAddress() {
         return this.address;
     };
-    public Properties toPropertiesObject() {
-        Properties contact = new Properties();
-
-        contact.setProperty("name", this.name);
-        contact.setProperty("surname", this.surname);
-        contact.setProperty("home", this.homePhone);
-        contact.setProperty("office", this.officePhone);
-        contact.setProperty("cellphone", this.cellPhone);
-        contact.setProperty("email", this.email);
-        contact.setProperty("birthday", this.birthday);
-        contact.setProperty("address", this.address);
-
-        return contact;
+    public String getKey() {
+        return this.key;
     }
 
     public String toString() {

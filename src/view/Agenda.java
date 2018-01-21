@@ -1,9 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.ContainerOrderFocusTraversalPolicy;
-
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.ActionEvent;
@@ -101,7 +98,7 @@ public class Agenda extends ContactForm{
 				contact.setAddress(address.getText());
 
 				model.saveContact(contact);
-				
+
 				list.setSelectedIndex(listModel.getSize() - 1);
 				
 				newContact = false;
@@ -110,7 +107,17 @@ public class Agenda extends ContactForm{
 			}
 		});
 
-		clear.addActionListener(new ActionListener(){
+		delete.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Contact contact = list.getSelectedValue();
+				model.deleteContact(contact);
+				list.setSelectedIndex(0);
+				listModel.removeElement(contact);
+			}
+		});
+
+		add.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				clearFields();

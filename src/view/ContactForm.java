@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import model.Contact;
 
@@ -31,7 +29,7 @@ public class ContactForm {
 
 	protected JButton save;
 	protected JButton delete;
-	protected JButton clear;
+	protected JButton add;
 
 	protected JPanel container;
 	
@@ -57,7 +55,7 @@ public class ContactForm {
 
 		save = new JButton("Save");
 		delete = new JButton("Delete");
-		clear = new JButton("Clear fields");
+		add = new JButton("New");
 		
 		configElements();
 	}
@@ -105,10 +103,10 @@ public class ContactForm {
 		birthdayLabel.setBounds(350, 200, 127, 25);
 		birthday.setBounds(420, 200, 127, 25);
 
-		save.setBounds(150, 350, 150, 40);
-		delete.setBounds(350, 350, 150, 40);
+		save.setBounds(225, 350, 150, 40);
+		delete.setBounds(400, 350, 150, 40);
 		
-		clear.setBounds(275, 450, 100, 25);
+		add.setBounds(47, 350, 150, 40);
 				
 		container = new JPanel();
 		container.setBounds(240, 10, 640, 570);
@@ -133,7 +131,7 @@ public class ContactForm {
 
 		container.add(save);
 		container.add(delete);
-		container.add(clear);
+		container.add(add);
 
 		container.setLayout(new BorderLayout());		
 	}

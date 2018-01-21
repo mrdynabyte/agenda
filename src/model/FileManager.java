@@ -21,7 +21,20 @@ public class FileManager {
     public FileManager() {
         dialog = new JDialog();
         chooser = new JFileChooser();
-		launchDirectoryChooser();
+        properties = new Properties();
+        
+        launchDirectoryChooser();
+        
+        try {
+            reader = new FileReader(manager.getAbsolutePath());
+            properties.load(reader);
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File:  "+ manager.getAbsolutePath() + " was not found");
+        } catch(IOException e) {
+            System.out.println("There was a problem reading the contact file");            
+        }
+        
     }
 
     public  String[] fileList() {
@@ -29,41 +42,25 @@ public class FileManager {
     }
 
     public  Properties getFileProperties() {
-        properties = new Properties();
-        try {
-            reader = new FileReader(manager.getAbsolutePath());  
-            properties.load(reader);
-        } catch (FileNotFoundException e) {
-            System.out.println("File:  "+ manager.getAbsolutePath() + " was not found");
-        } catch(IOException e) {
-            System.out.println("There was a problem reading the contact file");            
-        }
-
-        return properties;
+        return this.properties;
     }
 
     public void saveOnFile(String cString, String key) {
-        
-        try {
-            writer = new FileWriter(manager.getAbsolutePath());
-            
-            if(properties.size() < Integer.parseInt(key)) {                
-                properties.put(key, cString);
 
-            } else {
-                properties.setProperty(key, cString);
-            }
-
-            properties.store(writer, "");
-
-        } catch (IOException e) {
-            System.out.println("There was a problem reading the contact file");
-        } catch (Exception e) {
-            System.out.println("Exception while writing contact file: " + e.getMessage());
+        if(properties.size() < Integer.parseInt(key)) {                
+            properties.put(key, cString);
+        } else {
+            properties.setProperty(key, cString);
         }
 
+        writeToFile();
     } 
 
+    public void deleteOnFile(String key) {
+        properties.remove(key);
+        writeToFile();
+    }
+        
 	private void launchDirectoryChooser () {
 
 		chooser.setCurrentDirectory(new java.io.File("."));
@@ -84,6 +81,17 @@ public class FileManager {
 		else {
 			System.out.println("No Selection ");
 		}
-	}    
+    }    
+    
+    private void writeToFile(){
+        try {
+            writer = new FileWriter(manager.getAbsolutePath());
+            properties.store(writer, "");
+        } catch (IOException e) {
+            System.out.println("There was a problem reading the contact file");
+        } catch (Exception e) {
+            System.out.println("Exception while writing contact file: " + e.getMessage());
+        }        
+    }
 }
 

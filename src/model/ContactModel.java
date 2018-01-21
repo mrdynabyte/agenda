@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Enumeration;
 import java.util.Properties;
 
 public class ContactModel {
@@ -11,13 +12,17 @@ public class ContactModel {
     }
 
     public Contact[] getContactList() {
+        
         Properties properties = manager.getFileProperties();
         Contact contacts[] = new Contact[properties.size()];
+        Enumeration keys = properties.keys();
+        int i = 0;
 
-        for( int i = 0; i < contacts.length; i++ ) {
-            String cString = properties.getProperty(String.valueOf(i + 1));
-            System.out.println(cString);
-            contacts[i] =  new Contact(cString.split(","), String.valueOf(i +1));
+        while(keys.hasMoreElements()) {
+            String key = keys.nextElement().toString();
+            String cString = properties.getProperty(key);
+            contacts[i] =  new Contact(cString.split(","), key);
+            i++;
         }
 
         return contacts;
@@ -46,4 +51,7 @@ public class ContactModel {
         return manager.getFileProperties().size();
     }
 
+    public void deleteContact(Contact contact) {
+        manager.deleteOnFile(contact.getKey());
+    }
 }

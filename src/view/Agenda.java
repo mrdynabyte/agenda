@@ -1,6 +1,16 @@
 package view;
-
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.Border;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.ActionEvent;
@@ -11,11 +21,18 @@ import model.Contact;
 
 public class Agenda extends ContactForm{
 	private JFrame window;
+	private JPanel globalContainer;
 	private JList<Contact> list;
 	private JScrollPane leftContainer;
 	private DefaultListModel<Contact> listModel;
 	private ContactModel model;
 	private boolean newContact;
+	
+	/*right container*/
+	private JPanel rightContainer;
+	
+	/* north container */
+	private JPanel northContainer;
 
 	public Agenda() {
 		listModel  		= new DefaultListModel<Contact>();
@@ -47,21 +64,45 @@ public class Agenda extends ContactForm{
 	   
 		window.setSize(950, 650);
 		window.setLocation(145, 100);
+		window.setLocationRelativeTo(null);
 		window.setResizable(true);
-		window.setLayout(null);
+		//window.setLayout(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("Agenda Inc.");
-		window.getContentPane().setBackground(Color.decode("#3E4147"));
+		//window.getContentPane().setBackground(Color.decode("#3E4147"));
 
-		addElements();
+		/* the globalContainer */
+		globalContainer = new JPanel();
+		globalContainer.setLayout(new BorderLayout());
+		globalContainer.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.decode("#1098DA")));
+		
+		/* the northContainer */
+		northContainer = new JPanel();
+		northContainer.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#1098DA")));
+		
+		String path = new File("agenda/src/images").getAbsolutePath();
+		ImageIcon icon = new ImageIcon(path+"/logo.jpg");
+		JLabel label = new JLabel();
+		
+		label.setIcon(icon);
+		northContainer.add(label);
+		northContainer.setBackground(Color.WHITE);
+		globalContainer.add(northContainer, BorderLayout.NORTH);
+		
+		/*the leftContainer*/
+		leftContainer 	= new JScrollPane(list);
+		globalContainer.add(leftContainer, BorderLayout.WEST);
+		
+		/*the rightContainer */
+		rightContainer = this.container;
+		rightContainer.setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, Color.decode("#1098DA")));
+		
+		globalContainer.add(rightContainer, BorderLayout.CENTER);
+
+		window.setContentPane(globalContainer);
 
 		window.setVisible(true);
    }
-
-	private void addElements() {
-		window.add(leftContainer);
-		window.add(this.container);
-	}
 
 	private void configureEvents() {
 		list.addListSelectionListener(new ListSelectionListener() {

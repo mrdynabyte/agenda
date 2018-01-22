@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
+import java.awt.Font;
+import java.awt.Image;
+import java.io.File;
 import model.Contact;
 
 public class ContactForm {
@@ -52,10 +54,24 @@ public class ContactForm {
 		addressLabel 		= new JLabel("Address");
 		birthdayLabel 		= new JLabel("Birthday");
 
+		String path = new File("agenda/src/images").getAbsolutePath();
 
-		save = new JButton("Save");
-		delete = new JButton("Delete");
-		add = new JButton("New");
+		System.out.println("IMages path: " + path);
+
+		ImageIcon icon_save = new ImageIcon(path+"/check.png");
+		Image img = icon_save.getImage().getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH );
+		icon_save = new ImageIcon( img );
+		save = new JButton("Save", icon_save);
+
+		ImageIcon icon_delete = new ImageIcon(path+"/delete.png");
+		img = icon_delete.getImage().getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH );
+		icon_delete = new ImageIcon( img );
+		delete = new JButton("Delete", icon_delete);
+
+		ImageIcon icon_new = new ImageIcon(path+"/add.png");
+		img = icon_new.getImage().getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH );
+		icon_new = new ImageIcon( img );		
+		add = new JButton("New", icon_new);
 		
 		configElements();
 	}
@@ -78,6 +94,22 @@ public class ContactForm {
 	}
 
 	private void configElements() {
+
+		Font font1 = new Font("Courier", Font.BOLD, 14);
+		nameLabel.setFont(font1);
+		surnameLabel.setFont(font1);
+		homePhoneLabel.setFont(font1);
+		cellPhoneLabel.setFont(font1);
+		officePhoneLabel.setFont(font1);
+		emailLabel.setFont(font1);
+		addressLabel.setFont(font1);
+		birthdayLabel.setFont(font1);
+		
+		Font font2 = new Font("Courier", Font.BOLD, 18);
+
+		add.setFont(font2);
+		save.setFont(font2);
+		delete.setFont(font2);		
 		nameLabel.setBounds(40, 50, 127, 25);
 		name.setBounds(97, 50, 127, 25);
 		
@@ -110,7 +142,6 @@ public class ContactForm {
 				
 		container = new JPanel();
 		container.setBounds(240, 10, 640, 570);
-		container.setBackground(Color.decode("#FFFEDF"));
 		container.add(name);
 		container.add(surname);
 		container.add(homePhone);

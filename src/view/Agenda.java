@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.Random;
 import model.ContactModel;
 import model.Contact;
 
@@ -76,12 +76,12 @@ public class Agenda extends ContactForm{
 			public void actionPerformed(ActionEvent e) {
 
 				System.out.println("Saving contact");
-
+				Random random = new Random(System.currentTimeMillis());
 				Contact contact;
 
 				if( newContact ) {
 					contact = new Contact();
-					contact.setKey(String.valueOf(model.getContactSize() + 1));
+					contact.setKey(String.valueOf(random.nextInt()));
 					listModel.addElement(contact);
 				}
 				else {

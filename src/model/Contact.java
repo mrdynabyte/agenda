@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Properties;
-
 public class Contact {
     private String name;
     private String surname;
@@ -18,7 +16,8 @@ public class Contact {
     }
 
     public Contact (String[] record, String key) {
-        this.setName(record[0]);
+
+        this.setName(record[0]);        
 		this.setSurname(record[1]);
 		this.setHomePhone(record[2]);
 		this.setOfficePhone(record[3]);
@@ -26,6 +25,7 @@ public class Contact {
 		this.setEmail(record[5]);
 		this.setBirthday(record[6]);
         this.setAddress(record[7]);
+        
         this.setKey(key);
     }
 

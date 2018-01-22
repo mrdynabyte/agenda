@@ -16,11 +16,12 @@ public class ContactModel {
         Properties properties = manager.getFileProperties();
         Contact contacts[] = new Contact[properties.size()];
         Enumeration keys = properties.keys();
+        String key, cString;
         int i = 0;
 
         while(keys.hasMoreElements()) {
-            String key = keys.nextElement().toString();
-            String cString = properties.getProperty(key);
+            key         = keys.nextElement().toString();
+            cString     = properties.getProperty(key);
             contacts[i] =  new Contact(cString.split(","), key);
             i++;
         }

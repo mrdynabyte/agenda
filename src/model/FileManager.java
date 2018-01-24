@@ -35,12 +35,12 @@ public class FileManager {
         return this.properties;
     }
 
-    public void saveOnFile(String cString, String key) {
+    public void savePropertyOnFile(String cString, String key) {
         this.properties.setProperty(key, cString);
         writeToFile();
     } 
 
-    public void deleteOnFile(String key) {
+    public void deletePropertyFromFile(String key) {
         this.properties.remove(key);
         writeToFile();
     }
@@ -73,39 +73,74 @@ public class FileManager {
         }        
     }
 
-    private void loadPreferences() {
+    public void loadPreferences() {
         String filename;
         if(loadFile(this.preferences)) {
             filename = this.properties.get("filename").toString();
             if(!loadFile(filename)) {
-                launchDirectoryChooser();
+                launchDirectoryChooser(false);
             }
         }
         else{
             this.properties.setProperty("filename", "");
             writeToFile();
-            launchDirectoryChooser();
+            launchDirectoryChooser(false);
         }
         System.out.println("Loaded agenda: " + this.manager.getAbsolutePath());
     }
 
-	private void launchDirectoryChooser() {
+    public void setToPreferenceFile() {
+        loadFile(this.preferences);
+    }
 
+	public void launchDirectoryChooser(boolean save) {
+        
 		chooser.setCurrentDirectory(new java.io.File("."));
-		chooser.setDialogTitle("Choose agenda directory...");
+        chooser.setDialogTitle("Choose agenda directory...");
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setBounds(450, 150, 250, 150);
         chooser.setVisible(true);
-        
-		if (chooser.showOpenDialog(dialog) == JFileChooser.APPROVE_OPTION) { 
+
+        if(save)
+            launchSaveDialog();
+        else
+            launchLoadDialog();
+
+    }
+    
+    private void launchSaveDialog() {
+        chooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
+        if (chooser.showSaveDialog(dialog) == JFileChooser.APPROVE_OPTION) { 
+            Properties data = properties;
+
+            this.setToPreferenceFile();
+            
+            properties.setProperty("filename", chooser.getSelectedFile().getAbsolutePath());
+            
+            this.writeToFile();
+            
+            loadFile(chooser.getSelectedFile().getAbsolutePath());
+
+            properties = data;
+
+            this.writeToFile();
+        }
+        else {
+            System.out.println("No Selection ");
+        }
+    }
+
+    private void launchLoadDialog() {
+        chooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
+        if (chooser.showOpenDialog(dialog) == JFileChooser.APPROVE_OPTION) { 
             properties.setProperty("filename", chooser.getSelectedFile().getAbsolutePath());
             writeToFile();
             loadFile(chooser.getSelectedFile().getAbsolutePath());
-		}
-		else {
+        }
+        else {
             System.out.println("No Selection ");
-            launchDirectoryChooser();
-		}
-    }        
+            launchDirectoryChooser(false);
+        }  
+    }
 }
 

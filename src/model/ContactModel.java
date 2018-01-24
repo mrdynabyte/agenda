@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class ContactModel {
 
-    private static FileManager manager;
+    private FileManager manager;
 
     public ContactModel() {
         manager = new FileManager();
@@ -45,7 +45,7 @@ public class ContactModel {
         cString += "," + contact.getBirthday();
         cString += "," + contact.getAddress();
 
-        manager.saveOnFile(cString, contact.getKey());
+        manager.savePropertyOnFile(cString, contact.getKey());
     }
 
     public int getContactSize() {
@@ -53,6 +53,10 @@ public class ContactModel {
     }
 
     public void deleteContact(Contact contact) {
-        manager.deleteOnFile(contact.getKey());
+        manager.deletePropertyFromFile(contact.getKey());
+    }
+
+    public FileManager getFileManager() {
+        return this.manager;
     }
 }

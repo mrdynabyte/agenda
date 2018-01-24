@@ -108,7 +108,8 @@ public class Agenda extends ContactForm{
 		list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-				setValues(list.getSelectedValue());
+				if(list.getSelectedValue() != null)
+					setValues(list.getSelectedValue());
 			}
 		});
 
@@ -153,7 +154,7 @@ public class Agenda extends ContactForm{
 			public void actionPerformed(ActionEvent e) {
 				Contact contact = list.getSelectedValue();
 				model.deleteContact(contact);
-				list.setSelectedIndex(0);
+				list.setSelectedIndex(list.getComponentCount() - 1);
 				listModel.removeElement(contact);
 			}
 		});
@@ -197,6 +198,37 @@ public class Agenda extends ContactForm{
 				updateLabelLanguage(menu.getLanguageProperties("es"));	
 			}
 		});
+
+		menu.getFileExit().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+
+		menu.getFileOpen().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.getFileManager().setToPreferenceFile();
+				model.getFileManager().launchDirectoryChooser(false);
+				list.setSelectedIndex(0);
+				listModel.removeAllElements();
+				populateContactsList();
+			}
+		});
+
+		menu.getFileSaveAs().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.getFileManager().launchDirectoryChooser(true);
+				list.setSelectedIndex(0);
+				listModel.removeAllElements();
+				populateContactsList();				
+			}
+		});		
 	}
 	
 	private void updateLabelLanguage(String[] labels) {

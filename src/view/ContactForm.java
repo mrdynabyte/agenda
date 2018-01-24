@@ -102,41 +102,41 @@ public class ContactForm {
 		emailLabel.setFont(font1);
 		addressLabel.setFont(font1);
 		birthdayLabel.setFont(font1);
-		
+
 		Font font2 = new Font("Courier", Font.BOLD, 18);
 
 		add.setFont(font2);
 		save.setFont(font2);
 		delete.setFont(font2);		
-		nameLabel.setBounds(40, 50, 127, 25);
-		name.setBounds(97, 50, 127, 25);
+		nameLabel.setBounds(107, 50, 145, 25);
+		name.setBounds(197, 50, 145, 25);
 		
-		surnameLabel.setBounds(350, 50, 127, 25);
-		surname.setBounds(420, 50, 127, 25);
+		surnameLabel.setBounds(400, 50, 145, 25);
+		surname.setBounds(500, 50, 165, 25);
 
-		homePhoneLabel.setBounds(40, 100, 127, 25);
-		homePhone.setBounds(97, 100, 127, 25);
+		homePhoneLabel.setBounds(107, 100, 145, 25);
+		homePhone.setBounds(197, 100, 145, 25);
 
-		cellPhoneLabel.setBounds(350, 100, 127, 25);
-		cellPhone.setBounds(420, 100, 127, 25);
+		cellPhoneLabel.setBounds(400, 100, 145, 25);
+		cellPhone.setBounds(500, 100, 165, 25);
 
 		
-		officePhoneLabel.setBounds(40, 150, 127, 25);
-		officePhone.setBounds(97, 150, 127, 25);
+		officePhoneLabel.setBounds(107, 150, 145, 25);
+		officePhone.setBounds(197, 150, 145, 25);
 
-		emailLabel.setBounds(350, 150, 127, 25);
-		email.setBounds(420, 150, 127, 25);
+		emailLabel.setBounds(400, 150, 145, 25);
+		email.setBounds(500, 150, 165, 25);
 		
-		addressLabel.setBounds(40, 200, 127, 25);
-		address.setBounds(97, 200, 127, 25);
+		addressLabel.setBounds(107, 200, 145, 25);
+		address.setBounds(197, 200, 145, 25);
 		
-		birthdayLabel.setBounds(350, 200, 127, 25);
-		birthday.setBounds(420, 200, 127, 25);
+		birthdayLabel.setBounds(400, 200, 145, 25);
+		birthday.setBounds(500, 200, 165, 25);
 
-		save.setBounds(225, 350, 150, 40);
-		delete.setBounds(400, 350, 150, 40);
+		add.setBounds(107, 350, 175, 40);
+		save.setBounds(305, 350, 175, 40);
+		delete.setBounds(500, 350, 175, 40);
 		
-		add.setBounds(47, 350, 150, 40);
 				
 		container = new JPanel();
 		container.setBackground(Color.white);

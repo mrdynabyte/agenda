@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,8 @@ public class Agenda extends ContactForm{
 	private DefaultListModel<Contact> listModel;
 	private ContactModel model;
 	private boolean newContact;
+
+	private AgendaMenu menu;
 	
 	/*right container*/
 	private JPanel rightContainer;
@@ -40,7 +41,7 @@ public class Agenda extends ContactForm{
 		leftContainer 	= new JScrollPane(list);
 		window 			= new JFrame();
 		model			= new ContactModel();
-
+		menu			= new AgendaMenu();
 		configElements();
 		configureEvents();
 	};
@@ -60,16 +61,20 @@ public class Agenda extends ContactForm{
 	}
 
 	private void configElements() {
+		String path = new File("agenda/src/images").getAbsolutePath();
+		ImageIcon icon = new ImageIcon(path+"/logo.jpg");
+		JLabel label = new JLabel();
+
 		leftContainer.setBounds(10, 10, 150, 572);
 	   
 		window.setSize(950, 650);
 		window.setLocation(145, 100);
 		window.setLocationRelativeTo(null);
 		window.setResizable(true);
-		//window.setLayout(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("Agenda Inc.");
-		//window.getContentPane().setBackground(Color.decode("#3E4147"));
+
+		label.setIcon(icon);
 
 		/* the globalContainer */
 		globalContainer = new JPanel();
@@ -79,28 +84,23 @@ public class Agenda extends ContactForm{
 		/* the northContainer */
 		northContainer = new JPanel();
 		northContainer.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#1098DA")));
-		
-		String path = new File("agenda/src/images").getAbsolutePath();
-		ImageIcon icon = new ImageIcon(path+"/logo.jpg");
-		JLabel label = new JLabel();
-		
-		label.setIcon(icon);
-		northContainer.add(label);
+		northContainer.setLocation(0, 100);
 		northContainer.setBackground(Color.WHITE);
-		globalContainer.add(northContainer, BorderLayout.NORTH);
+		northContainer.add(label);
 		
 		/*the leftContainer*/
 		leftContainer 	= new JScrollPane(list);
-		globalContainer.add(leftContainer, BorderLayout.WEST);
 		
 		/*the rightContainer */
 		rightContainer = this.container;
 		rightContainer.setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, Color.decode("#1098DA")));
 		
 		globalContainer.add(rightContainer, BorderLayout.CENTER);
-
+		globalContainer.add(northContainer, BorderLayout.NORTH);
+		globalContainer.add(leftContainer, BorderLayout.WEST);
+		
+		window.setJMenuBar(menu.getMenu());
 		window.setContentPane(globalContainer);
-
 		window.setVisible(true);
    }
 
@@ -165,9 +165,55 @@ public class Agenda extends ContactForm{
 				newContact =  true;
 			}
 		});
-			
+		
+		menu.getEnglishMenu().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateLabelLanguage(menu.getLanguageProperties("en"));
+			}
+		});
+
+		menu.getDeutschMenu().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateLabelLanguage(menu.getLanguageProperties("de"));
+			}
+		});
+
+		menu.getFrenchMenu().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateLabelLanguage(menu.getLanguageProperties("fr"));	
+			}
+		});
+
+		menu.getSpanishMenu().addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateLabelLanguage(menu.getLanguageProperties("es"));	
+			}
+		});
 	}
 	
+	private void updateLabelLanguage(String[] labels) {
+		this.nameLabel.setText(labels[0]);
+		this.surnameLabel.setText(labels[1]);
+		this.homePhoneLabel.setText(labels[2]);
+		this.officePhoneLabel.setText(labels[3]);
+		this.cellPhoneLabel.setText(labels[4]);
+		this.emailLabel.setText(labels[5]);
+		this.addressLabel.setText(labels[6]);
+		this.birthdayLabel.setText(labels[7]);
+
+		this.add.setText(labels[8]);
+		this.save.setText(labels[9]);
+		this.delete.setText(labels[10]);
+	}
+
 	private void refresh() {
 		leftContainer.repaint();
 		window.repaint();

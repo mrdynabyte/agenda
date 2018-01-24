@@ -56,8 +56,6 @@ public class ContactForm {
 
 		String path = new File("agenda/src/images").getAbsolutePath();
 
-		System.out.println("IMages path: " + path);
-
 		ImageIcon icon_save = new ImageIcon(path+"/check.png");
 		Image img = icon_save.getImage().getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH );
 		icon_save = new ImageIcon( img );
@@ -141,6 +139,7 @@ public class ContactForm {
 		add.setBounds(47, 350, 150, 40);
 				
 		container = new JPanel();
+		container.setBackground(Color.white);
 		container.setBounds(240, 10, 640, 570);
 		container.add(name);
 		container.add(surname);
